@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 
 const root=new URL('../',import.meta.url),out=new URL('dist/',root);
 // Only these browser files can become public assets. Never publish the repository root.
-export const assets=['index.html','app.js','reports.js','style.css'];
+export const assets=['index.html','app.js','reports.js','style.css','favicon.svg'];
 export async function build(){
  await mkdir(out,{recursive:true});
  // Only clear this fixed output directory; it is always inside this project.

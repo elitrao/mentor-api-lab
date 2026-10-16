@@ -20,9 +20,9 @@ export function createServer(fetchImpl = fetch) {
     const host = req.headers.host || '';
     if(!/^127\.0\.0\.1:\d+$/.test(host)) return json(res,403,{error:'Используйте адрес 127.0.0.1'});
     const url = new URL(req.url, `http://${host}`);
-    if (req.method === 'GET' && ['/', '/app.js', '/reports.js', '/style.css'].includes(url.pathname)) {
+    if (req.method === 'GET' && ['/', '/app.js', '/reports.js', '/style.css', '/favicon.svg'].includes(url.pathname)) {
       const file = url.pathname === '/' ? 'index.html' : url.pathname.slice(1);
-      const type = file.endsWith('html')?'text/html':file.endsWith('js')?'text/javascript':'text/css';
+      const type = file.endsWith('html')?'text/html':file.endsWith('js')?'text/javascript':file.endsWith('svg')?'image/svg+xml':'text/css';
       res.writeHead(200, {'Content-Type':type+'; charset=utf-8','Cache-Control':'no-store'});
       return res.end(await readFile(new URL(file,ROOT)));
     }
