@@ -1,0 +1,16 @@
+node_modules/
+.env
+.env.*
+!.env.example
+*.log
+*.mp3
+*.wav
+*.flac
+*.aac
+*.ogg
+*.opus
+*.amr
+mentor-response*.json
+coverage/
+.DS_Store
+Thumbs.db
