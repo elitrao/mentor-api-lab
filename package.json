@@ -1,1 +1,20 @@
-{"name":"mentor-api-lab","version":"1.0.0","private":true,"type":"module","scripts":{"start":"node server.mjs","test":"node --test server.test.mjs"}}
+{
+  "name": "mentor-api-lab",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test server.test.mjs worker.test.mjs",
+    "build": "node scripts/build.mjs",
+    "deploy": "wrangler deploy",
+    "dev:worker": "wrangler dev",
+    "check:deploy": "wrangler deploy --dry-run --outdir worker-dry-run"
+  },
+  "devDependencies": {
+    "wrangler": "4.151.0"
+  }
+}

@@ -14,3 +14,8 @@ mentor-response*.json
 coverage/
 .DS_Store
 Thumbs.db
+dist/
+.wrangler/
+.dev.vars
+.dev.vars.*
+worker-dry-run/

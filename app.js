@@ -1,5 +1,11 @@
 import { reportActions, reportAction, reportBody, reportDescriptor, validateReport, initReports, stopReportWatch, handleReportResponse } from './reports.js';
 const $=id=>document.getElementById(id);
+if(!['127.0.0.1','localhost'].includes(location.hostname)){
+ document.querySelector('.local').lastChild.textContent=' Cloudflare Workers';
+ document.querySelector('.version span').textContent='Веб-инструмент';
+ document.querySelector('footer span').textContent='Mentor API Lab · Cloudflare';
+ document.querySelectorAll('footer span')[1].textContent='Ключ и файлы передаются в Mentor через сервер этого сайта. Ключ не сохраняется в приложении.';
+}
 const hosts={test:'https://test.mentor.iqgroup.ai',production:'https://mentor.iqgroup.ai'};
 let active='upload',busy=false,history=[],lastResponse=null,lastPreview='',accounts=[];
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -69,7 +75,7 @@ async function send(action,automatic=false){
  lastPreview=sentPreview;$('requestPreview').textContent=sentPreview;$('requestMode').textContent='Отправляемый запрос · ключ скрыт';
  lock(true);$('responseBadge').textContent='Отправка…';$('responseBadge').className='badge';$('responseBody').textContent='Ожидаем ответ Mentor…';$('responseMeta').textContent='Один запрос. Без автоматических повторов.';
  let data;
- try{const response=await fetch(request);data=await response.json();}catch(error){data={upstream:false,error:'Связь с локальным сервером прервана. Для POST результат неизвестен; проверьте кабинет перед повтором.',detail:error.name};}
+ try{const response=await fetch(request);data=await response.json();}catch(error){data={upstream:false,error:'Связь с сервером приложения прервана. Для POST результат неизвестен; проверьте кабинет перед повтором.',detail:error.name};}
  showResponse(data);$('requestMode').textContent='Отправленный запрос · ключ скрыт';
  history.unshift({action,environment,preview:sentPreview,data,time:new Date().toLocaleTimeString('ru-RU')});history=history.slice(0,20);renderHistory();
  if(data.upstream&&data.status>=200&&data.status<300){
